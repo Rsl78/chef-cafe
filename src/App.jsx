@@ -8,6 +8,10 @@ import Title from "./components/Title/title";
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [totalTime, setTotalTime] = useState(0);
+  const [totalCalori, setTotalCalori] = useState(0)
+
+  const [currentlyCookingFoods, setCurrentlyCookingFoods] = useState([])
 
   useEffect(() => {
     fetch("data.json")
@@ -15,8 +19,41 @@ function App() {
       .then((data) => setRecipes(data));
   }, []);
 
-  const handleWantsToCook = (order) =>{
-    const newOrders = [...orders, order];
+  const handlePreparing = (
+    recipe_id,
+    preparing_time,
+    calories,
+    currentlyCookingFood
+  ) => {
+    // console.log("connecting ", currentlyCookingFoods)
+    const newCurrentlyCookingFoods = [
+      ...currentlyCookingFoods,
+      currentlyCookingFood,
+    ];
+    setCurrentlyCookingFoods(newCurrentlyCookingFoods);
+
+    const updateOrders = orders.filter((order) => order.recipe_id !== recipe_id);
+    setOrders(updateOrders)
+    console.log("remove id", recipe_id);
+
+    const newTotalTime = totalTime +preparing_time;
+    setTotalTime(newTotalTime);
+
+    const newTotalCalori = totalCalori + calories;
+    setTotalCalori(newTotalCalori)
+
+  };
+
+  const handleWantsToCook = (wantToOrder) =>{
+    const wantToOrderId = wantToOrder.recipe_id;
+    console.log(wantToOrderId)
+
+    orders.map()
+
+    // if(){
+
+    // }
+    const newOrders = [...orders, wantToOrder];
     setOrders(newOrders)
   }
 
@@ -25,7 +62,15 @@ function App() {
       <Navbar />
       <Header />
       <Title />
-      <Recipes handleWantsToCook={handleWantsToCook} recipes={recipes} orders={orders} />
+      <Recipes
+        handlePreparing={handlePreparing}
+        handleWantsToCook={handleWantsToCook}
+        recipes={recipes}
+        orders={orders}
+        currentlyCookingFoods= {currentlyCookingFoods}
+        totalCalori= {totalCalori}
+        totalTime= {totalTime}
+      />
     </div>
   );
 }

@@ -11,7 +11,7 @@ const Recipe = ({ recipe, handleWantsToCook }) => {
     preparing_time,
     calories,
   } = recipe;
-  console.log(recipe);
+  // console.log(recipe);
   return (
     <div className="rounded-2xl">
       <div className="card bg-base-100 w-96 shadow-xl">

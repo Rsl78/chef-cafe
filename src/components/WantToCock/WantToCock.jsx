@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"; // ES6
-const WantToCock = ({ order, index }) => {
-  const { recipe_name, preparing_time, calories } = order;
+const WantToCock = ({ order, index, handlePreparing }) => {
+  const { recipe_id, recipe_name, preparing_time, calories } = order;
   return (
     <>
       {/* row 1 */}
@@ -10,7 +10,12 @@ const WantToCock = ({ order, index }) => {
         <td>{preparing_time}</td>
         <td>{calories} </td>
         <th>
-          <button className="btn bg-[#0BE58A] btn-sm rounded-3xl">
+          <button
+            onClick={() =>
+              handlePreparing(recipe_id, preparing_time, calories, order)
+            }
+            className="btn bg-[#0BE58A] btn-sm rounded-3xl"
+          >
             Preparing
           </button>
         </th>
@@ -22,6 +27,7 @@ const WantToCock = ({ order, index }) => {
 WantToCock.propTypes = {
   order: PropTypes.object,
   index: PropTypes.number,
+  handlePreparing: PropTypes.func,
 };
 
 export default WantToCock;

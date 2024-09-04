@@ -1,7 +1,9 @@
 import PropTypes from "prop-types"; // ES6
 import WantToCock from "../WantToCock/WantToCock";
-const Order = ({ orders }) => {
-//   const { recipe_name, preparing_time , calories} = orders;
+import CookingFood from "../CookingFood/CookingFood";
+
+const Order = ({ orders, handlePreparing, currentlyCookingFoods, totalTime, totalCalori }) => {
+  //   const { recipe_name, preparing_time , calories} = orders;
   return (
     <div className="">
       <div className="card w-full shadow-xl">
@@ -21,14 +23,21 @@ const Order = ({ orders }) => {
               </tr>
             </thead>
             <tbody>
-                {
-                    orders.map((order, index) => <WantToCock key={index} index={index} order= {order}/>)
-                }
+              {orders.map((order, index) => (
+                <WantToCock
+                  key={index}
+                  index={index}
+                  order={order}
+                  handlePreparing={handlePreparing}
+                />
+              ))}
             </tbody>
           </table>
 
           <hr className="" />
-          <h2 className="card-title ">Currently Cooking: 0</h2>
+          <h2 className="card-title ">
+            Currently Cooking: {currentlyCookingFoods.length}
+          </h2>
           {/* Currently cooking table */}
           <table className="table">
             {/* head */}
@@ -40,20 +49,24 @@ const Order = ({ orders }) => {
                 <th>Calories</th>
               </tr>
             </thead>
+
             <tbody>
+              {currentlyCookingFoods.map((CurrentlyCookingFood, index) => (
+                <CookingFood
+                  key={index}
+                  CurrentlyCookingFood={CurrentlyCookingFood}
+                  index={index}                
+                ></CookingFood>
+              ))}
               {/* row 1 */}
-              <tr>
-                <td>1</td>
-                <td>Recipes name</td>
-                <td>0 minutes</td>
-                <td>0 calories </td>
-              </tr>
             </tbody>
             <tfoot>
-              <td></td>
-              <td>Total</td>
-              <td>Minutes</td>
-              <td>Calories</td>
+              <tr>
+                <th></th>
+                <th>Total</th>
+                <th>{totalTime} Minutes</th>
+                <th>{totalCalori} Calories</th>
+              </tr>
             </tfoot>
           </table>
         </div>
@@ -64,6 +77,10 @@ const Order = ({ orders }) => {
 
 Order.propTypes = {
   orders: PropTypes.array,
+  handlePreparing: PropTypes.func,
+  currentlyCookingFoods: PropTypes.array,
+  totalTime: PropTypes.number,
+  totalCalori: PropTypes.number
 };
 
 export default Order;
