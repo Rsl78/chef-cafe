@@ -7,6 +7,7 @@ import Title from "./components/Title/title";
 
 function App() {
   const [recipes, setRecipes] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     fetch("data.json")
@@ -14,12 +15,17 @@ function App() {
       .then((data) => setRecipes(data));
   }, []);
 
+  const handleWantsToCook = (order) =>{
+    const newOrders = [...orders, order];
+    setOrders(newOrders)
+  }
+
   return (
     <div className="container  mx-auto font-lexend">
       <Navbar />
       <Header />
       <Title />
-      <Recipes recipes={recipes}/>
+      <Recipes handleWantsToCook={handleWantsToCook} recipes={recipes} orders={orders} />
     </div>
   );
 }

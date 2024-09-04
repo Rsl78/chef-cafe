@@ -2,7 +2,7 @@ import PropTypes from "prop-types"; // ES6
 import { FiClock } from "react-icons/fi";
 import { GoFlame } from "react-icons/go";
 
-const Recipe = ({ recipe }) => {
+const Recipe = ({ recipe, handleWantsToCook }) => {
   const {
     recipe_image,
     recipe_name,
@@ -13,7 +13,7 @@ const Recipe = ({ recipe }) => {
   } = recipe;
   console.log(recipe);
   return (
-    <div className="border rounded-2xl">
+    <div className="rounded-2xl">
       <div className="card bg-base-100 w-96 shadow-xl">
         <figure className="px-4 pt-4">
           <img
@@ -50,7 +50,10 @@ const Recipe = ({ recipe }) => {
             </div>
           </div>
           <div className="card-actions pt-2">
-            <button className="btn bg-[#0BE58A] rounded-3xl">
+            <button
+              onClick={() => handleWantsToCook(recipe)}
+              className="btn bg-[#0BE58A] rounded-3xl"
+            >
               Want to cook
             </button>
           </div>
@@ -62,5 +65,6 @@ const Recipe = ({ recipe }) => {
 
 Recipe.propTypes = {
   recipe: PropTypes.object.isRequired,
+  handleWantsToCook: PropTypes.func,
 };
 export default Recipe;
