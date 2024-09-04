@@ -9,9 +9,9 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [orders, setOrders] = useState([]);
   const [totalTime, setTotalTime] = useState(0);
-  const [totalCalori, setTotalCalori] = useState(0)
+  const [totalCalori, setTotalCalori] = useState(0);
 
-  const [currentlyCookingFoods, setCurrentlyCookingFoods] = useState([])
+  const [currentlyCookingFoods, setCurrentlyCookingFoods] = useState([]);
 
   useEffect(() => {
     fetch("data.json")
@@ -32,30 +32,32 @@ function App() {
     ];
     setCurrentlyCookingFoods(newCurrentlyCookingFoods);
 
-    const updateOrders = orders.filter((order) => order.recipe_id !== recipe_id);
-    setOrders(updateOrders)
+    const updateOrders = orders.filter(
+      (order) => order.recipe_id !== recipe_id
+    );
+    setOrders(updateOrders);
     console.log("remove id", recipe_id);
 
-    const newTotalTime = totalTime +preparing_time;
+    const newTotalTime = totalTime + preparing_time;
     setTotalTime(newTotalTime);
 
     const newTotalCalori = totalCalori + calories;
-    setTotalCalori(newTotalCalori)
-
+    setTotalCalori(newTotalCalori);
   };
 
-  const handleWantsToCook = (wantToOrder) =>{
+  const handleWantsToCook = (wantToOrder) => {
     const wantToOrderId = wantToOrder.recipe_id;
-    console.log(wantToOrderId)
 
-    orders.map()
+    const exist = orders.some((existing) => existing.recipe_id === wantToOrderId);
+    console.log(exist)
 
-    // if(){
-
-    // }
-    const newOrders = [...orders, wantToOrder];
-    setOrders(newOrders)
-  }
+    if (!exist) {
+      const newOrders = [...orders, wantToOrder];
+      setOrders(newOrders);
+    }else{
+      setOrders(orders)
+    }
+  };
 
   return (
     <div className="container  mx-auto font-lexend">
@@ -67,9 +69,9 @@ function App() {
         handleWantsToCook={handleWantsToCook}
         recipes={recipes}
         orders={orders}
-        currentlyCookingFoods= {currentlyCookingFoods}
-        totalCalori= {totalCalori}
-        totalTime= {totalTime}
+        currentlyCookingFoods={currentlyCookingFoods}
+        totalCalori={totalCalori}
+        totalTime={totalTime}
       />
     </div>
   );

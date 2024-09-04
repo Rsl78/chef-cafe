@@ -12,7 +12,7 @@ const Recipes = ({
   totalCalori
 }) => {
   return (
-    <div className="flex">
+    <div className="flex pb-10">
       <div className="w-7/12 flex flex-wrap gap-6">
         {/* <h1>Length: {recipes.length}</h1> */}
         {recipes.map((recipe) => (
